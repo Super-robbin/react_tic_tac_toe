@@ -1,4 +1,5 @@
 import Player from "./components/Player";
+import GameBoard from "./components/GameBoard";
 
 // Whenever we are using or reusing a component, React will basically create a new isolated instance.
 // So even though both these players here use the same player component, they work totally isolated from each other.
@@ -13,7 +14,7 @@ const App = () => {
           <Player initialName="Player 1" symbol="X" />
           <Player initialName="Player 2" symbol="O" />
         </ol>
-        GAME BOARD
+        <GameBoard />
       </div>
       LOG
     </main>

@@ -33,6 +33,7 @@ const Player = ({ initialName, symbol }) => {
             required
             value={playerName}
             onChange={handleChange}
+            // The above is called TWO-WAY-BINDING because we get a value out from the input and we feed a value back into the input.
           ></input>
         )}
         <span className="player-symbol">{symbol}</span>
