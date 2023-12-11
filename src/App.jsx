@@ -9,24 +9,40 @@ import Log from "./components/Log";
 // If the state in this first player component instance here changes,
 // the second player component instance does not care about that at all.
 
+const deriveActivePlayer = (gameTurns) => {
+  let currentPlayer = "X";
+
+  if (gameTurns.length > 0 && gameTurns[0].player === "X") {
+    currentPlayer = "O";
+  }
+
+  return currentPlayer;
+};
+
 const App = () => {
   const [gameTurns, setGameTurns] = useState([]);
-  const [activePlayer, setActivePlayer] = useState("X");
+  // const [activePlayer, setActivePlayer] = useState("X"); we don't need it anymore, we just use an helper function outside App
 
-// Step 1 - We create updatedTurns (immutable way), as an array of objects,
-// where we copy existing turns and add new ones at the beginning.
-// Step 2 - We create currentPlayer and set it to "X" initially, then we use IF statement to check the simbol and change it based on
-// the previous one. We then pass currentPlayer as player value in updatedTurns array.
-// Step 3 - We return updatedTurns as new value of setGameTurns.
+  const activePlayer = deriveActivePlayer(gameTurns);
+
+  // Step 1 - We create updatedTurns (immutable way), as an array of objects,
+  // where we copy existing turns and add new ones at the beginning.
+  // Step 2 - We create currentPlayer and set it to "X" initially, then we use IF statement to check the simbol and change it based on
+  // the previous one. We then pass currentPlayer as player value in updatedTurns array.
+  // Step 3 - We return updatedTurns as new value of setGameTurns.
 
   const handleSelectSquare = (rowIndex, colIndex) => {
-    setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
+    // setActivePlayer((curActivePlayer) => (curActivePlayer === "X" ? "O" : "X"));
     setGameTurns((prevTurns) => {
-      let currentPlayer = "X";
+      // let currentPlayer = "X";
 
-      if (prevTurns.length > 0 && prevTurns[0].player === "X") {
-        currentPlayer = "O";
-      }
+      // if (prevTurns.length > 0 && prevTurns[0].player === "X") {
+      //   currentPlayer = "O";
+      // }
+
+      // We can now replace the above code, with the deriveActivePlayer function so we can avoid managing state when unnecessary.
+
+      const currentPlayer = deriveActivePlayer(prevTurns);
 
       const updatedTurns = [
         { square: { row: rowIndex, col: colIndex }, player: currentPlayer },
@@ -51,12 +67,9 @@ const App = () => {
             isActive={activePlayer === "O"}
           />
         </ol>
-        <GameBoard
-          onSelectSquare={handleSelectSquare}
-          turns={gameTurns}
-        />
+        <GameBoard onSelectSquare={handleSelectSquare} turns={gameTurns} />
       </div>
-      <Log turns={gameTurns}/>
+      <Log turns={gameTurns} />
     </main>
   );
 };

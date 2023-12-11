@@ -11,10 +11,9 @@
 // to both the game board and the log component which I wanna use here.
 
 const Log = ({ turns }) => {
-
-    // Step 1 - We pass the gameTurns as turns prop here.
-    // Step 2 - We map through turns and create <li> extracting player and square info.
-    // Step 3 - We use the row and col info as KEY for each individual <li>
+  // Step 1 - We pass the gameTurns as turns prop here.
+  // Step 2 - We map through turns and create <li> extracting player and square info.
+  // Step 3 - We use the row and col info as KEY for each individual <li>
   return (
     <ol id="log">
       {turns.map((turn) => (

@@ -16,7 +16,6 @@ const initialGameBoard = [
 // We then pass it down as a prop because squares get selected here, in the GameBoard component.
 
 const GameBoard = ({ onSelectSquare, turns }) => {
-
   // Step 1 - We pass the gameTurns as turns prop here.
   // Step 2 - We create a gameBoard variable with initialGameBoard values to begin.
   // Step 3 - We do a FOR loop through the array (turns) and we destructure turn in square, player. Then we destructure square,
@@ -56,7 +55,16 @@ const GameBoard = ({ onSelectSquare, turns }) => {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={() => onSelectSquare(rowIndex, colIndex)}>{playerSymbol}</button>
+                <button
+                  onClick={() => onSelectSquare(rowIndex, colIndex)}
+                  disabled={playerSymbol !== null}
+                >
+                  {playerSymbol}
+                </button>
+                {/* 
+                We use the disabled prop to make sure that if the button has already been selected by a player,
+                it will set it to disabled=true.
+                */}
               </li>
             ))}
           </ol>
