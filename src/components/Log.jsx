@@ -10,14 +10,20 @@
 // So we again, need to lift state up to the app component because that's the component that has access
 // to both the game board and the log component which I wanna use here.
 
-const Log = () => {
+const Log = ({ turns }) => {
 
-
-    return (
-        <ol id="log">
-
-        </ol>
-    )
-}
+    // Step 1 - We pass the gameTurns as turns prop here.
+    // Step 2 - We map through turns and create <li> extracting player and square info.
+    // Step 3 - We use the row and col info as KEY for each individual <li>
+  return (
+    <ol id="log">
+      {turns.map((turn) => (
+        <li key={`${turn.square.row}${turn.square.col}`}>
+          {turn.player} selected {turn.square.row}, {turn.square.col}
+        </li>
+      ))}
+    </ol>
+  );
+};
 
 export default Log;

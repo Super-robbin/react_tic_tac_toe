@@ -16,6 +16,13 @@ const initialGameBoard = [
 // We then pass it down as a prop because squares get selected here, in the GameBoard component.
 
 const GameBoard = ({ onSelectSquare, turns }) => {
+
+  // Step 1 - We pass the gameTurns as turns prop here.
+  // Step 2 - We create a gameBoard variable with initialGameBoard values to begin.
+  // Step 3 - We do a FOR loop through the array (turns) and we destructure turn in square, player. Then we destructure square,
+  // into row, col. Lastly, we update the gameBoard[row][col] with player info.
+  // Step 4 - We update the onClick function onSelectSquare(rowIndex, colIndex) by passing row and col paramenters, which will be then used
+  // inside the handleSelectSquare function in App.jsx.
   let gameBoard = initialGameBoard;
 
   for (const turn of turns) {
