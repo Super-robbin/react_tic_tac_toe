@@ -7,6 +7,9 @@
 // However, we can't really manage that state here because that information,
 // which button was clicked is generated in the game board component.
 
+// So we again, need to lift state up to the app component because that's the component that has access
+// to both the game board and the log component which I wanna use here.
+
 const Log = () => {
 
 
