@@ -15,7 +15,16 @@ const initialGameBoard = [
 // };
 // We then pass it down as a prop because squares get selected here, in the GameBoard component.
 
-const GameBoard = ({ onSelectSquare }) => {
+const GameBoard = ({ onSelectSquare, turns }) => {
+  let gameBoard = initialGameBoard;
+
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    gameBoard[row][col] = player;
+  }
+
   // const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   // const handleSelectSquare = (rowIndex, colIndex) => {
@@ -40,9 +49,7 @@ const GameBoard = ({ onSelectSquare }) => {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={onSelectSquare}>
-                  {playerSymbol}
-                </button>
+                <button onClick={() => onSelectSquare(rowIndex, colIndex)}>{playerSymbol}</button>
               </li>
             ))}
           </ol>
