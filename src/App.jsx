@@ -28,13 +28,14 @@ const deriveActivePlayer = (gameTurns) => {
 };
 
 const App = () => {
+  const [players, setPlayers] = useState({
+    X: "Player 1",
+    O: "Player 2",
+  });
   const [gameTurns, setGameTurns] = useState([]);
-  // const [hasWinner, setHasWinner] = useState(false);
   // const [activePlayer, setActivePlayer] = useState("X"); we don't need it anymore, we just use an helper function outside App
 
   const activePlayer = deriveActivePlayer(gameTurns);
-
-  console.log(WINNING_COMBINATIONS);
 
   // The below code was moved up from the gameBoard component. Comments refer to before when it was still there
   // Step 1 - We pass the gameTurns as turns prop here.
@@ -75,7 +76,7 @@ const App = () => {
       firstSquareSymbol === secondSquareSymbol &&
       firstSquareSymbol === thirdSquareSymbol
     ) {
-      winner = firstSquareSymbol;
+      winner = players[firstSquareSymbol];
     }
   }
 
@@ -115,6 +116,23 @@ const App = () => {
     setGameTurns([]);
   };
 
+  // Step 1 - We create a players state at the top of App.jsx as an object, so that we have the key X
+  // and the value for that key is Player One and the key O for the second player and that's Player Two.
+  // Step 2 - We create handlePlayerNameChange and we pass symbol and newName as parameters.
+  // Step 3 - We use the callback function to return and object with the ...prevPlayers (old) objects
+  // and then we replace the symbol with the newName.
+  // We use this approach to ensure that I keep the name and symbol of the player who is not changing,
+  // I'm then just overriding the name for the symbol of the player that was changed.
+
+  const handlePlayerNameChange = (symbol, newName) => {
+    setPlayers((prevPlayers) => {
+      return {
+        ...prevPlayers,
+        [symbol]: newName,
+      };
+    });
+  };
+
   return (
     <main>
       <div id="game-container">
@@ -123,11 +141,13 @@ const App = () => {
             initialName="Player 1"
             symbol="X"
             isActive={activePlayer === "X"}
+            onChangeName={handlePlayerNameChange}
           />
           <Player
             initialName="Player 2"
             symbol="O"
             isActive={activePlayer === "O"}
+            onChangeName={handlePlayerNameChange}
           />
         </ol>
         {/* 

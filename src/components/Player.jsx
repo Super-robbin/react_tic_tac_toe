@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Player = ({ initialName, symbol, isActive }) => {
+const Player = ({ initialName, symbol, isActive, onChangeName }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
 
@@ -15,6 +15,9 @@ const Player = ({ initialName, symbol, isActive }) => {
   const handleEditClick = () => {
     setIsEditing((editing) => !editing); // right way to do it, you simply have a guarantee by React that you'll always be working
     // with the latest available state value.
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   };
 
   const handleChange = (e) => {
@@ -22,7 +25,7 @@ const Player = ({ initialName, symbol, isActive }) => {
   };
 
   return (
-    <li className={isActive ? 'active' : undefined}>
+    <li className={isActive ? "active" : undefined}>
       <span className="player">
         {!isEditing ? (
           <span className="player-name">{playerName}</span>
