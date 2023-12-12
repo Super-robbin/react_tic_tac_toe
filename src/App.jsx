@@ -43,7 +43,12 @@ const App = () => {
   // into row, col. Lastly, we update the gameBoard[row][col] with player info.
   // Step 4 - We update the onClick function onSelectSquare(rowIndex, colIndex) by passing row and col paramenters, which will be then used
   // inside the handleSelectSquare function in App.jsx.
-  let gameBoard = initialGameBoard;
+
+  let gameBoard = [...initialGameBoard.map((array) => [...array])];
+
+  // We use the above method so we create a copy of the initialGameBoard array.
+  // With this, we make sure that we added a brand new array when we derive the gameBoard
+  // and not that original initial array in memory. Now the rematch button will work and will clear the array.
 
   for (const turn of gameTurns) {
     const { square, player } = turn;
@@ -106,6 +111,10 @@ const App = () => {
     });
   };
 
+  const handleRematch = () => {
+    setGameTurns([]);
+  };
+
   return (
     <main>
       <div id="game-container">
@@ -124,7 +133,9 @@ const App = () => {
         {/* 
         Below, if we have a winner or if hasDraw is true, the GameOver component is displayed.
         */}
-        {(winner || hasDraw) && <GameOver winner={winner} />}
+        {(winner || hasDraw) && (
+          <GameOver winner={winner} onRematch={handleRematch} />
+        )}
         <GameBoard onSelectSquare={handleSelectSquare} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
