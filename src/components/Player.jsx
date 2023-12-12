@@ -5,8 +5,7 @@ const Player = ({ initialName, symbol, isActive }) => {
   const [playerName, setPlayerName] = useState(initialName);
 
   // When updating your state based on the PREVIOUS VALUE of that state,
-  // you should pass a function to that state updating function.
-  // This is a strong recommendation by the React team.
+  // you should pass a function to that state updating function. This is a strong recommendation by the React team.
   // It's a best practice in the React world and it is simply something you should memorise.
 
   //  setIsEditing(!isEditing); // => schedules a state update to true (not immediately)
