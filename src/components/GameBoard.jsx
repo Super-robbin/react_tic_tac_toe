@@ -5,7 +5,6 @@
 
 const GameBoard = ({ onSelectSquare, board }) => {
   // const [gameBoard, setGameBoard] = useState(initialGameBoard);
-
   // We replace/delete the game board state above, since it is missing information about the order
   // in which these buttons are clicked. We instead use the game turns state in the App.jsx
 
